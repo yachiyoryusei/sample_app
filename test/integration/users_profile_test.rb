@@ -5,6 +5,7 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:michael)
+    # image = @message.image.attach(io: File.open('/path/to/file'), filename: 'file.pdf')
   end
 
   test "profile display" do
@@ -12,7 +13,7 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     assert_template 'users/show'
     assert_select 'title', full_title(@user.name)
     assert_select 'h1', text: @user.name
-    assert_select 'h1>img.gravator'
+    assert_select 'h1>.gravator'
     assert_match @user.microposts.count.to_s, response.body
     assert_select 'div.pagination'
     @user.microposts.paginate(page: 1) do |micropost|

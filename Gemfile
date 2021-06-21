@@ -4,7 +4,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'rails',      '6.0.3'
 gem 'aws-sdk-s3',              '1.46.0', require: false
 gem 'image_processing',           '1.9.3'
+gem 'carrierwave',             '0.10.0'
 gem 'mini_magick',                '4.9.5'
+
 gem 'active_storage_validations', '0.8.2'
 gem 'bcrypt',         '3.1.13'
 gem 'faker',           '2.1.2'
@@ -44,6 +46,7 @@ end
 
 group :production do
   gem 'pg', '1.1.4'
+  gem 'fog', '1.36.0'
 end
 
 # Windows ではタイムゾーン情報用の tzinfo-data gem を含める必要があります
