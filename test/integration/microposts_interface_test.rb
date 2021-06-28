@@ -19,11 +19,11 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_select 'div#error_explanation'
     # 有効な送信
     content = "This micropost really ties the room together"
-    picture = fixture_file_upload('test/fixtures/rails.png', 'image/png')
+    image = fixture_file_upload('test/fixtures/kitten.jpg', 'image/jepg')
     assert_difference 'Micropost.count', 1 do
-      post microposts_path, params: { micropost: { content: content, picture: picture } }
+      post microposts_path, params: { micropost: { content: content, image: image } }
     end
-    assert assigns(:micropost).picture?
+
     assert_redirected_to root_url
     follow_redirect!
     assert_match content, response.body

@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-    has_many_attached :picture
+    has_many_attached :image
     has_many :microposts, dependent: :destroy
     has_many :active_relationships, class_name:  "Relationship",
                                   foreign_key: "follower_id",
@@ -83,10 +83,10 @@ class User < ApplicationRecord
   
   # ユーザーのステータスフィードを返す
   def feed
-     following_ids = "SELECT followed_id FROM relationships
-                     WHERE follower_id = :user_id"
-    Micropost.where("user_id IN (#{following_ids})
-                     OR user_id = :user_id", user_id: id)
+    part_of_feed = "relationships.follower_id = :id or microposts.user_id = :id"
+    Micropost.left_outer_joins(user: :followers)
+             .where(part_of_feed, { id: id }).distinct
+             .includes(:user, image_attachment: :blob)
   end
 
   # ユーザーをフォローする

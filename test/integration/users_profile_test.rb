@@ -5,7 +5,6 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:michael)
-    img = @message.image.attach(io: File.open('/users/show'), filename: 'file.pdf')
   end
 
   test "profile display" do
